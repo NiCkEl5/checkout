@@ -13,9 +13,7 @@ class Checkout
 
   def scan purchased_item:''
     item_detail = get_product purchased_item
-    self.cart << item_detail['name']
-    self.discounts |= [item_detail['discount']] if count_products(item_detail['name']) >= item_detail['discount']['number_products']
-    self.pre_total += item_detail['price']
+    add_to_cart item_detail
   end
 
   def total
@@ -28,6 +26,14 @@ class Checkout
 
   private
 
+  def add_to_cart item_detail
+    self.cart << item_detail['name']
+    self.pre_total += item_detail['price']
+    if count_products(item_detail['name']) >= item_detail['discount']['number_products']
+      self.discounts |= [item_detail['discount']]
+    end
+  end
+
   def count_products product
     self.cart.count(product)
   end
@@ -37,28 +43,28 @@ class Checkout
   end
 
   def apply_discount discount_rule:
-    items = count_products discount_rule['product_name']
-    discount = get_discount discount_rule, items
+    number_of_items = count_products discount_rule['product_name']
+    discount = get_discount rule: discount_rule, items: number_of_items
     self.pre_total -= discount
   end
 
-  def get_discount discount_rule, items
+  def get_discount rule:, items:
     discount = 0
-    case discount_rule['type']
+    case rule['type']
     when 'item'
-      discount = items/discount_rule['number_products']
+      discount = items/rule['number_products']
     when 'amount'
       discount = items
     else
       puts 'discount 404'
     end
 
-    return discount * discount_rule['amount']
+    return discount * rule['amount']
   end
 end
 ########start########
-# co = Checkout.new
-# ['GR1','SR1','GR1','GR1','CF1'].each do |item|
-#   co.scan(purchased_item: item)
-# end
-# puts co.total
+co = Checkout.new
+['GR1','SR1','GR1','GR1','CF1'].each do |item|
+  co.scan(purchased_item: item)
+end
+puts co.total
