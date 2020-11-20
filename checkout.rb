@@ -1,19 +1,20 @@
-require 'yaml'
 require './products.rb'
+require './discounts.rb'
 
 class Checkout
   attr_accessor :pre_total, :cart
-  attr_reader :products
+  attr_reader :products, :discounts
 
-  def initialize(products: Products.new)
+  def initialize(products: Products.new, discounts: Discounts.new)
     @products = products
+    @discounts = discounts
     @cart=[]
     @pre_total = 0
   end
 
   def scan purchased_item:''
     item_price = products.get_product_price product_id: purchased_item
-    process_item item_id: purchased_item, item_price: item_price
+    process_item item_id: purchased_item, item_price: item_price unless item_price.nil?
   end
 
   def total
@@ -40,14 +41,7 @@ class Checkout
 
   def apply_discount product_id:
     number_of_items = count_products product_id
-    # discount = get_discount rule: discount_rule, items: number_of_items
-    discount = products.get_product_discount product_id: product_id, product_qty: number_of_items
+    discount = discounts.get_product_discount product_id: product_id, product_qty: number_of_items
     self.pre_total -= discount
   end
 end
-########start########
-# co = Checkout.new
-# ['GR1','SR1','GR1','GR1','CF1'].each do |item|
-#   co.scan(purchased_item: item)
-# end
-# puts co.total

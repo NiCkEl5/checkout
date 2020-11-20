@@ -1,22 +1,20 @@
 items:
   - name: 'GR1'
     price: 3.11
-    discount:
-      product_name: 'GR1'
-      type: 'item'
-      number_products: 2
-      amount: 3.11
   - name: 'SR1'
     price: 5
-    discount:
-      product_name: 'SR1'
-      type: 'amount'
-      number_products: 3
-      amount: 0.50
   - name: 'CF1'
     price: 11.23
-    discount:
-      product_name: 'CF1'
-      type: 'amount'
-      number_products: 3
-      amount: 3.743
+discounts:
+  - product_id: 'GR1'
+    type: 'item'
+    number_products: 2
+    amount: 3.11
+  - product_id: 'SR1'
+    type: 'amount'
+    number_products: 3
+    amount: 0.50
+  - product_id: 'CF1'
+    type: 'amount'
+    number_products: 3
+    amount: 3.743
