@@ -22,7 +22,10 @@ class CheckoutTest < Minitest::Test
   end
 
   def test_calculate_shop
-    { 22.45 => ['GR1','SR1','GR1','GR1','CF1'],
+    { 13.5 => ['SR1','SR1','SR1'],
+      22.46 => ['CF1','CF1','CF1'],
+      19.34 => ['GR1','SR1','CF1'],
+      22.45 => ['GR1','SR1','GR1','GR1','CF1'],
      3.11 => ['GR1','GR1'],
      16.61 => ['SR1','SR1','GR1','SR1'],
      30.57 => ['GR1','CF1','SR1','CF1', 'CF1']}.each do |total_expected, products|
