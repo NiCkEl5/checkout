@@ -25,15 +25,15 @@ Configuration file
 The configuration file is written in YAML format, we have 2 sections in the file, one for products and other for discounts. The syntax to configurate a product is:
 
 items:
-  - name: <id_of_the_product_string>
-  - price: <price_of_the_product_int>
+  - name: <id_of_the_product> type: string
+  - price: <price_of_the_product> type: int
 
-Discounts configuration  has the following sectuibs
+Discounts configuration  has the following syntax:
 
 discounts:
-  - product_id: <id_of_the_product_string>
-  - type: <type_of_discount_string, currently_we_have_2_types: item and ammount>
-  - number_products: <number_of_products_int_that_apply_for_the_discount>
-  - amount: <ammount_of_the_discount_float>
+  - product_id: <id_of_the_product> type: string
+  - type: <type_of_discount, currently_we_have_2_types: item and ammount> type: string
+  - number_products: <number_of_products_that_apply_for_the_discount> type: int
+  - amount: <ammount_of_the_discount> type: float
 
 no discounts can be entered but keyword muts be pressent in the file
