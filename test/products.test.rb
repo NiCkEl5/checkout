@@ -4,13 +4,11 @@ require_relative '../products.rb'
 class ProductsTest < Minitest::Test
   def test_create_product
     products = Products.new
-    assert products
     refute_empty products.products_list
   end
 
   def test_create_products_empty
     products = Products.new data: {"items"=>[]}
-    assert products
     assert_empty products.products_list
   end
 

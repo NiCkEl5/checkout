@@ -2,7 +2,7 @@ require './products.rb'
 require './discounts.rb'
 
 class Checkout
-  attr_accessor :pre_total, :cart
+  attr_accessor :pre_total, :cart, :discounts_total
   attr_reader :products, :discounts
 
   def initialize(products: Products.new, discounts: Discounts.new)
@@ -10,6 +10,7 @@ class Checkout
     @discounts = discounts
     @cart=[]
     @pre_total = 0
+    @discounts_total = 0
   end
 
   def scan purchased_item:''
@@ -18,10 +19,8 @@ class Checkout
   end
 
   def total
-    get_unique_products.each do |item|
-      apply_discount product_id: item
-    end
-    return self.pre_total.round(2)
+    apply_discount
+    (self.pre_total - self.discounts_total).round(2)
   end
 
   private
@@ -39,9 +38,13 @@ class Checkout
     self.cart.count(product)
   end
 
-  def apply_discount product_id:
-    number_of_items = count_products product_id
-    discount = discounts.get_product_discount product_id: product_id, product_qty: number_of_items
-    self.pre_total -= discount
+  def apply_discount
+    self.discounts_total = 0
+    get_unique_products.each do |product_id|
+      number_of_items = count_products product_id
+      discount = discounts.get_product_discount product_id: product_id, product_qty: number_of_items
+      self.discounts_total += discount
+    end
+
   end
 end

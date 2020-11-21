@@ -5,20 +5,18 @@ require_relative '../checkout.rb'
 class CheckoutTest < Minitest::Test
   def test_create_checkout
     co = Checkout.new
-    assert co
-    refute_empty co.products, 'princing_rules attribute dont exist'
+    assert_kind_of(Products, co.products)
+    assert_kind_of(Discounts, co.discounts)
   end
 
   def test_scan_one_item
     co = Checkout.new
-    assert co
     co.scan(purchased_item: 'GR1')
     assert_equal 3.11, co.total
   end
 
   def test_scan_one_unknown_item
     co = Checkout.new
-    assert co
     co.scan(purchased_item: 'JL5')
     assert_equal 0, co.total
   end

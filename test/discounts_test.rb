@@ -4,13 +4,11 @@ require_relative '../discounts.rb'
 class DiscountsTest < Minitest::Test
   def test_create_discount
     discounts = Discounts.new
-    assert discounts
     refute_empty discounts.discounts_list, 'princing_rules attribute dont exist'
   end
 
   def test_create_discount_empty
     discounts = Discounts.new(data: {"discounts"=>[]})
-    assert discounts
     assert_empty discounts.discounts_list
   end
 
