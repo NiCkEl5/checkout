@@ -16,6 +16,13 @@ class CheckoutTest < Minitest::Test
     assert_equal 3.11, co.total
   end
 
+  def test_scan_one_unknown_item
+    co = Checkout.new
+    assert co
+    co.scan(purchased_item: 'JL5')
+    assert_equal 0, co.total
+  end
+
   def test_calculate_shop
     { 22.45 => ['GR1','SR1','GR1','GR1','CF1'],
      3.11 => ['GR1','GR1'],

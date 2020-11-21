@@ -22,6 +22,7 @@ class Products
 
   def get_list data
     list = []
+    return list if data.nil?
     data.each do |item|
       list << Product_item.new(item['name'], item['price'].to_f) if item['price'].to_f > 0
     end

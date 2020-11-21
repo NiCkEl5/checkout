@@ -39,6 +39,7 @@ class Discounts
   Discount_rule = Struct.new(:product_id, :type, :number_of_products, :amount)
   def get_list_discounts data
     list = []
+    return list if data.nil?
     data.each do |discount|
       list << Discount_rule.new(discount['product_id'],
         discount['type'],
