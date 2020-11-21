@@ -5,10 +5,16 @@ class ProductsTest < Minitest::Test
   def test_create_product
     products = Products.new
     assert products
-    refute_nil products.products_list, 'princing_rules attribute dont exist'
+    refute_empty products.products_list
   end
 
-  def test_get_product_blank_price
+  def test_create_products_empty
+    products = Products.new data: {"items"=>[]}
+    assert products
+    assert_empty products.products_list
+  end
+
+  def test_get_product_bad_call
     assert_raises(ArgumentError) do
       products = Products.new
       products.get_product_price

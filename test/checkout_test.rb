@@ -6,7 +6,7 @@ class CheckoutTest < Minitest::Test
   def test_create_checkout
     co = Checkout.new
     assert co
-    refute_nil co.products, 'princing_rules attribute dont exist'
+    refute_empty co.products, 'princing_rules attribute dont exist'
   end
 
   def test_scan_one_item
