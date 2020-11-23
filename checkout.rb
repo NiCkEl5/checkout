@@ -4,6 +4,7 @@ require './discounts.rb'
 class Checkout
   attr_accessor :pre_total, :cart, :discounts_total
   attr_reader :products, :discounts
+  private :pre_total=
 
   def initialize(products: Products.new, discounts: Discounts.new)
     @products = products
